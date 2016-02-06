@@ -1,4 +1,4 @@
-# Angular 2 Beta Boilerplate
+# Angular 2 Beta Playground
 
 ## Description
 This repository acts as a very simple Angular 2 Beta Playground to get started developing Angular 2.
