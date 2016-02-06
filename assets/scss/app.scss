@@ -5,7 +5,18 @@ body {
   font-size: 16px;
 }
 
-.main {
+.main,
+header nav {
     width: 75%;
     margin: 32px auto;
+}
+
+header nav a{
+    color: #233dcb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav a:hover{
+    color: #41abf2;
 }
