@@ -25,7 +25,7 @@ import {Contact} from './contact';
             <label for="email">Email:</label> 
             <input type="text" id="email" #email>
             </div>
-            <button (click)="onAddContact(id, firstName, lastName, phone, email)">Create contact</button>
+            <button (click)="onAddContact(id.value, firstName.value, lastName.value, phone.value, email.value)">Create contact</button>
         </div>
     `,
     providers: [ContactService],
