@@ -45,6 +45,6 @@ export class ContactComponent {
    onCreateNew(){
        this._privateRouter.navigate(['NewContactFromContact', {
            lastName: this.contact.lastName
-       }])
+       }]);
    }
 }

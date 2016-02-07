@@ -5,31 +5,48 @@ import {Router} from 'angular2/router';
 import {RouteParams} from 'angular2/router';
 import {OnInit} from "angular2/core";
 
-@Component({    
+@Component({
     template: `        
-        <div>
+        <form #myForm="ngForm" (ngSubmit)="onSubmit()">
             <div>
-            <label for="id">Id:</label>              
-            <input type="text" id="id" #id>
+                <label for="id">Id:</label>              
+                <input type="text" id="id">
             </div>
             <div>
-            <label for="first-name">First Name:</label>              
-            <input type="text" id="first-name" #firstName>
+                <label for="first-name">First Name:</label>              
+                <input type="text" id="first-name"
+                    ngControl="firstName"
+                    required
+                    [(ngModel)] = "newContact.firstName"
+                    #firstName="ngForm"
+                >
+                <span *ngIf="!firstName.valid">Not valid</span>
             </div>
             <div>
-            <label for="last-name">Last Name:</label>                        
-            <input type="text" id="last-name" #lastName value="{{passedLastName}}">
+                <label for="last-name">Last Name:</label>                        
+                <input type="text" id="last-name"
+                    ngControl="lastName"
+                    required
+                    [(ngModel)] = "newContact.lastName"
+                >
             </div>
             <div>
-            <label for="phone">Phone Number:</label>
-            <input type="text" id="phone" #phone>
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone"
+                    ngControl="phone"
+                    [(ngModel)] = "newContact.phone"
+                >
             </div>
             <div>
-            <label for="email">Email:</label> 
-            <input type="text" id="email" #email>
+                <label for="email">Email:</label> 
+                <input type="text" id="email"
+                    ngControl="email"
+                    required
+                    [(ngModel)] = "newContact.email"
+                >
             </div>
-            <button (click)="onAddContact(id.value, firstName.value, lastName.value, phone.value, email.value)">Create contact</button>
-        </div>
+            <button type="submit" [disabled] = "!myForm.form.valid">Create contact</button>
+        </form>
     `,
     providers: [ContactService],
     styles: [`
@@ -41,21 +58,37 @@ import {OnInit} from "angular2/core";
         input {
             width: 250px;
         }
+        
+        .ng-invalid{
+            border: 1px solid red;
+        }
     `]
 })
-export class NewContactComponent implements OnInit{
+export class NewContactComponent implements OnInit {
+
+    newContact: Contact;
+
+    constructor(private _contactService: ContactService, private _router: Router, private _routeParam: RouteParams) { }
+
+    onAddContact(id, firstName, lastName, phone, email) {
+        let contact: Contact = { id: id, firstName: firstName, lastName: lastName, phone: phone, email: email };
+        this._contactService.insertContact(contact);
+        this._router.navigate(['Contacts']);
+    }
     
-   public passedLastName = ''; 
-       
-   constructor(private _contactService: ContactService, private _router: Router, private _routeParam: RouteParams){}
-   
-   onAddContact(id, firstName, lastName, phone, email){
-       let contact: Contact = {id: id, firstName: firstName, lastName: lastName, phone: phone, email: email};
-       this._contactService.insertContact(contact);
-       this._router.navigate(['Contacts']);
-   }
-   
-   ngOnInit(): any{
-       this.passedLastName = this._routeParam.get('lastName');
-   }
+    onSubmit(){
+        this._contactService.insertContact(this.newContact);
+        this._router.navigate(['Contacts']);        
+    }
+
+    ngOnInit(): any {
+        //this.newContact.lastName = this._routeParam.get('lastName');
+        this.newContact = {
+            id: 9,
+            firstName: '',
+            lastName: this._routeParam.get('lastName'),
+            phone: '',
+            email: ''
+        }
+    }
 }
