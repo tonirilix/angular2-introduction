@@ -15,7 +15,7 @@ import {RouteConfig} from 'angular2/router';
         </header>
         <div class="main">
             <router-outlet></router-outlet>
-        </div>                       
+        </div>
     `,
     directives: [ContactListComponent, ROUTER_DIRECTIVES],    
 })
@@ -29,6 +29,11 @@ import {RouteConfig} from 'angular2/router';
     {
         path: '/newcontact', 
         name: 'NewContact',
+        component: NewContactComponent 
+    },
+    {
+        path: '/newcontact/:lastName', 
+        name: 'NewContactFromContact',
         component: NewContactComponent 
     }
 ])
