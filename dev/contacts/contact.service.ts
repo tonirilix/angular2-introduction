@@ -7,6 +7,7 @@ export class ContactService {
     getContacts() {
         return Promise.resolve(CONTACTS);
     }
+    
     insertContact(contact: Contact) {
         Promise.resolve(CONTACTS).then((contacts: Contact[]) => contacts.push(contact));
     }
