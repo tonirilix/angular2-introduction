@@ -10,7 +10,7 @@ Follow the following steps and you'll be able to run this example. Important: Ty
 
 1: Clone repo
 ```
-git clone https://github.com/tonirilix/angular2-introduction.git
+git clone https://github.com/tonirilix/angular2-playground.git
 ```
 
 2: Install packages
